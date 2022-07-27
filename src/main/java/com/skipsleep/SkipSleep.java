@@ -17,7 +17,7 @@ public final class SkipSleep extends JavaPlugin {
         saveDefaultConfig();
         say("§e[§aSkipSleep§e]§a=====================================");
         say("§e[§aSkipSleep§e]§a     §a作者:§b" + getDescription().getAuthors());
-        say("§e[§aSkipSleep§e]§a     §aQQ交流群:§b571542794");
+        say("§e[§aSkipSleep§e]§a     §aQQ交流群:§b759010920");
         say("§e[§aSkipSleep§e]§a     §a版本: §b" + getDescription().getVersion());
         say("§e[§aSkipSleep§e]§a=====================================");
 
