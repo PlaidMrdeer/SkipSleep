@@ -1,0 +1,9 @@
+name: SkipSleep
+version: 1.0
+main: com.skipsleep.SkipSleep
+api-version: 1.18
+author: 'PlaidMrdeer'
+description: '一款只需一个人睡觉就可以跳过夜晚的轻量插件'
+commands:
+  sks:
+    description: "主命令"
