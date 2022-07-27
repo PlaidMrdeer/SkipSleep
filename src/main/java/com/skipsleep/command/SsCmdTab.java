@@ -14,6 +14,7 @@ public class SsCmdTab implements TabCompleter {
         if (args.length == 1) {
             tab.add("on");
             tab.add("off");
+            tab.add("set");
             tab.add("reload");
             return tab;
         }

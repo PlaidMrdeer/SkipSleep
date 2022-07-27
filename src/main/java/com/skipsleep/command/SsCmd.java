@@ -18,18 +18,31 @@ public class SsCmd implements CommandExecutor {
         if (cmd.getName().equalsIgnoreCase("sks")) {
             if (p.isOp() || sender == Bukkit.getConsoleSender()) {
                 if (args.length != 0) {
-                    if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off") || args[0].equalsIgnoreCase("reload")) {
+                    if (args[0].equalsIgnoreCase("set")) {
+                        if (args.length == 2) {
+                            int num = Integer.parseInt(args[1]);
+                            SkipSleep.getPlugin().getConfig().set("skipNum", num);
+                            SkipSleep.getPlugin().saveConfig();
+                            p.sendMessage(ChatColor.GREEN + "已设置达到 " + ChatColor.YELLOW + num + "人" + ChatColor.GREEN + " 睡觉跳过夜晚");
+                        } else {
+                            p.sendMessage(ChatColor.RED + "命令错误!");
+                            p.sendMessage(ChatColor.AQUA + "/sks set <数字>--设置达到几人睡觉跳过夜晚");
+                        }
+                    }
+                    if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off") || args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("set")) {
                         subCmd(args[0], sender);
                     } else {
                         p.sendMessage(ChatColor.RED + "命令错误!");
                         p.sendMessage(ChatColor.AQUA + "/sks on--设置开启跳过功能");
                         p.sendMessage(ChatColor.AQUA + "/sks off--设置关闭跳过功能");
+                        p.sendMessage(ChatColor.AQUA + "/sks set <数字>--设置达到几人睡觉跳过夜晚");
                         p.sendMessage(ChatColor.AQUA + "/sks reload--重载配置文件");
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "命令错误!");
                     p.sendMessage(ChatColor.AQUA + "/sks on--设置开启跳过功能");
                     p.sendMessage(ChatColor.AQUA + "/sks off--设置关闭跳过功能");
+                    p.sendMessage(ChatColor.AQUA + "/sks set <数字>--设置达到几人睡觉跳过夜晚");
                     p.sendMessage(ChatColor.AQUA + "/sks reload--重载配置文件");
                 }
             } else {
@@ -53,9 +66,6 @@ public class SsCmd implements CommandExecutor {
             case "off":
                 SkipSleep.getPlugin().getConfig().set("skip", false);
                 SkipSleep.getPlugin().saveConfig();
-                for (Player p1 : Bukkit.getOnlinePlayers()) {
-                    p1.setSleepingIgnored(false);
-                }
                 if (sender == Bukkit.getConsoleSender()) {
                     Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "跳过睡觉关闭!");
                 } else {
@@ -69,6 +79,8 @@ public class SsCmd implements CommandExecutor {
                 } else {
                     p.sendMessage(ChatColor.GREEN + "重载成功!");
                 }
+                break;
+            case "set":
                 break;
         }
     }
