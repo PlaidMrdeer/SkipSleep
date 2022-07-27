@@ -23,13 +23,13 @@ public class SsCmd implements CommandExecutor {
                     } else {
                         p.sendMessage(ChatColor.RED + "命令错误!");
                         p.sendMessage(ChatColor.AQUA + "/sks on--设置开启跳过功能");
-                        p.sendMessage(ChatColor.AQUA + "/sks on--设置关闭跳过功能");
+                        p.sendMessage(ChatColor.AQUA + "/sks off--设置关闭跳过功能");
                         p.sendMessage(ChatColor.AQUA + "/sks reload--重载配置文件");
                     }
                 } else {
                     p.sendMessage(ChatColor.RED + "命令错误!");
                     p.sendMessage(ChatColor.AQUA + "/sks on--设置开启跳过功能");
-                    p.sendMessage(ChatColor.AQUA + "/sks on--设置关闭跳过功能");
+                    p.sendMessage(ChatColor.AQUA + "/sks off--设置关闭跳过功能");
                     p.sendMessage(ChatColor.AQUA + "/sks reload--重载配置文件");
                 }
             } else {
