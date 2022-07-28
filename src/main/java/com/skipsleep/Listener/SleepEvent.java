@@ -3,6 +3,9 @@ package com.skipsleep.Listener;
 import com.skipsleep.SkipSleep;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,9 +17,13 @@ public class SleepEvent implements Listener {
     int num1 = 0;
     long time;
     Player p;
+    BossBar bossBar;
     @EventHandler
     public void onSleep(PlayerBedEnterEvent e) {
-        if (num1 > num) {
+        if (bossBar != null) {
+            bossBar.setVisible(false);
+        }
+        if (num1 > num || num1 < 0) {
             num1 = 0;
         }
         num1++;
@@ -29,9 +36,16 @@ public class SleepEvent implements Listener {
                 if (num1 == num) {
                     num1 = 0;
                     p.getWorld().setTime(0);
+                    bossBar.setVisible(false);
                 }
                 if (num1 != num) {
-                    Bukkit.broadcastMessage(ChatColor.AQUA + "已有 " + ChatColor.YELLOW + num1 + "/" + num + ChatColor.GREEN + " 躺在了床上");
+                    bossBar = Bukkit.createBossBar(ChatColor.AQUA + "已有 " + ChatColor.YELLOW + num1 + "/" + num + ChatColor.GREEN + " 躺在了床上",
+                            BarColor.GREEN,
+                            BarStyle.SOLID);
+                    for (Player p1 : Bukkit.getOnlinePlayers()) {
+                        bossBar.addPlayer(p1);
+                    }
+                    bossBar.setVisible(true);
                 }
             }
         }
@@ -40,6 +54,14 @@ public class SleepEvent implements Listener {
     public void onLeaveSleep(PlayerBedLeaveEvent e) {
         if (time >= 12000 || time == 0 || !p.getWorld().isClearWeather()) {
             num1--;
+            bossBar.setVisible(false);
+            bossBar = Bukkit.createBossBar(ChatColor.AQUA + "已有 " + ChatColor.YELLOW + num1 + "/" + num + ChatColor.GREEN + " 躺在了床上",
+                    BarColor.GREEN,
+                    BarStyle.SOLID);
+            bossBar.setVisible(true);
+            if (num1 == num) {
+                bossBar.setVisible(false);
+            }
         }
     }
 }
