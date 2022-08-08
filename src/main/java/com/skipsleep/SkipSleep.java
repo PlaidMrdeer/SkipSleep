@@ -3,12 +3,13 @@ package com.skipsleep;
 import com.skipsleep.Listener.SleepEvent;
 import com.skipsleep.command.SsCmd;
 import com.skipsleep.command.SsCmdTab;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class SkipSleep extends JavaPlugin {
-    private static Plugin plugin;
-    public static Plugin getPlugin() {
+    private static SkipSleep plugin;
+    public static SkipSleep getPlugin() {
         return plugin;
     }
     @Override
@@ -22,8 +23,8 @@ public final class SkipSleep extends JavaPlugin {
         say("§e[§aSkipSleep§e]§a=====================================");
 
         getServer().getPluginManager().registerEvents(new SleepEvent(), this);
-        getServer().getPluginCommand("sks").setExecutor(new SsCmd());
-        getServer().getPluginCommand("sks").setTabCompleter(new SsCmdTab());
+        Objects.requireNonNull(getServer().getPluginCommand("sks")).setExecutor(new SsCmd());
+        Objects.requireNonNull(getServer().getPluginCommand("sks")).setTabCompleter(new SsCmdTab());
     }
     private void say(String say) {
         getServer().getConsoleSender().sendMessage(say);

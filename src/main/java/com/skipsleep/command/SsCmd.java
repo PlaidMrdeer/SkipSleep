@@ -7,11 +7,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class SsCmd implements CommandExecutor {
     Player p;
+    int num;
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if (sender != Bukkit.getConsoleSender()) {
             p = (Player) sender;
         }
@@ -20,7 +22,15 @@ public class SsCmd implements CommandExecutor {
                 if (args.length != 0) {
                     if (args[0].equalsIgnoreCase("set")) {
                         if (args.length == 2) {
-                            int num = Integer.parseInt(args[1]);
+                            try {
+                                num = Integer.parseInt(args[1]);
+                            } catch (NumberFormatException e) {
+                                if (sender == Bukkit.getConsoleSender()) {
+                                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "你因该输入数字而不是字母");
+                                } else {
+                                    p.sendMessage(ChatColor.RED + "你因该输入数字而不是字母");
+                                }
+                            }
                             SkipSleep.getPlugin().getConfig().set("skipNum", num);
                             SkipSleep.getPlugin().saveConfig();
                             p.sendMessage(ChatColor.GREEN + "已设置达到 " + ChatColor.YELLOW + num + "人" + ChatColor.GREEN + " 睡觉跳过夜晚");
@@ -52,7 +62,7 @@ public class SsCmd implements CommandExecutor {
         }
         return false;
     }
-    private void subCmd(String sub, CommandSender sender) {
+    private void subCmd(@NotNull String sub, CommandSender sender) {
         switch (sub) {
             case "on":
                 SkipSleep.getPlugin().getConfig().set("skip", true);
