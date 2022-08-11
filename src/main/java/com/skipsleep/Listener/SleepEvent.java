@@ -60,6 +60,7 @@ public class SleepEvent implements Listener {
                                     num1 = 0;
                                     p.getWorld().setTime(0);
                                     p.getWorld().setStorm(false);
+                                    p.getWorld().setClearWeatherDuration(1);
                                 }
                                 cancel();
                             }
