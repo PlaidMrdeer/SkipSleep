@@ -20,6 +20,7 @@ public class SleepEvent implements Listener {
     @EventHandler
     public void onSleep(PlayerBedEnterEvent e) {
         num = SkipSleep.getPlugin().getConfig().getInt("skipNum");
+        p = e.getPlayer();
         if (num1 == num) {
             e.setCancelled(true);
             e.getPlayer().sendMessage("§l>> §b睡觉人数已经满了哦, 请等待跳过天亮");
@@ -31,9 +32,8 @@ public class SleepEvent implements Listener {
         }
         isFlag = SkipSleep.getPlugin().getConfig().getBoolean("skip");
         if (isFlag) {
-            p = e.getPlayer();
             time = p.getWorld().getTime();
-            if (time >= 12000 || time == 0 || !p.getWorld().isClearWeather()) {
+            if (time >= 12000 || time == 0 || p.getWorld().hasStorm()) {
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException ex) {
@@ -59,7 +59,7 @@ public class SleepEvent implements Listener {
                                 } else {
                                     num1 = 0;
                                     p.getWorld().setTime(0);
-                                    p.getWorld().setClearWeatherDuration(0);
+                                    p.getWorld().setStorm(false);
                                 }
                                 cancel();
                             }
