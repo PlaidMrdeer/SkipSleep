@@ -14,7 +14,7 @@ public class SsCmd implements CommandExecutor {
     int num;
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
-        if (sender != Bukkit.getConsoleSender()) {
+        if (sender instanceof Player) {
             p = (Player) sender;
         }
         if (cmd.getName().equalsIgnoreCase("sks")) {
@@ -26,14 +26,16 @@ public class SsCmd implements CommandExecutor {
                                 num = Integer.parseInt(args[1]);
                             } catch (NumberFormatException e) {
                                 if (sender == Bukkit.getConsoleSender()) {
-                                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "你因该输入数字而不是字母");
+                                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "你应该输入数字而不是字母");
+
                                 } else {
-                                    p.sendMessage(ChatColor.RED + "你因该输入数字而不是字母");
+                                    p.sendMessage(ChatColor.RED + "你应该输入数字而不是字母");
                                 }
+                                return true;
                             }
                             SkipSleep.getPlugin().getConfig().set("skipNum", num);
                             SkipSleep.getPlugin().saveConfig();
-                            p.sendMessage(ChatColor.GREEN + "已设置达到 " + ChatColor.YELLOW + num + "人" + ChatColor.GREEN + " 睡觉跳过夜晚");
+                            p.sendMessage(ChatColor.GREEN + "已设置达到 §l§e" + num + "人" + ChatColor.GREEN + " 睡觉跳过夜晚");
                         } else {
                             p.sendMessage(ChatColor.RED + "命令错误!");
                             p.sendMessage(ChatColor.AQUA + "/sks set <数字>--设置达到几人睡觉跳过夜晚");
@@ -42,18 +44,10 @@ public class SsCmd implements CommandExecutor {
                     if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off") || args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("set")) {
                         subCmd(args[0], sender);
                     } else {
-                        p.sendMessage(ChatColor.RED + "命令错误!");
-                        p.sendMessage(ChatColor.AQUA + "/sks on--设置开启跳过功能");
-                        p.sendMessage(ChatColor.AQUA + "/sks off--设置关闭跳过功能");
-                        p.sendMessage(ChatColor.AQUA + "/sks set <数字>--设置达到几人睡觉跳过夜晚");
-                        p.sendMessage(ChatColor.AQUA + "/sks reload--重载配置文件");
+                        tips();
                     }
                 } else {
-                    p.sendMessage(ChatColor.RED + "命令错误!");
-                    p.sendMessage(ChatColor.AQUA + "/sks on--设置开启跳过功能");
-                    p.sendMessage(ChatColor.AQUA + "/sks off--设置关闭跳过功能");
-                    p.sendMessage(ChatColor.AQUA + "/sks set <数字>--设置达到几人睡觉跳过夜晚");
-                    p.sendMessage(ChatColor.AQUA + "/sks reload--重载配置文件");
+                    tips();
                 }
             } else {
                 p.sendMessage(ChatColor.RED + "你不是管理员!");
@@ -93,5 +87,13 @@ public class SsCmd implements CommandExecutor {
             case "set":
                 break;
         }
+    }
+
+    private void tips() {
+        p.sendMessage(ChatColor.RED + "命令错误!");
+        p.sendMessage(ChatColor.AQUA + "/sks on--设置开启跳过功能");
+        p.sendMessage(ChatColor.AQUA + "/sks off--设置关闭跳过功能");
+        p.sendMessage(ChatColor.AQUA + "/sks set <数字>--设置达到几人睡觉跳过夜晚");
+        p.sendMessage(ChatColor.AQUA + "/sks reload--重载配置文件");
     }
 }
