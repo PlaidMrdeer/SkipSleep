@@ -31,6 +31,9 @@ public final class SkipSleep extends JavaPlugin {
 
         Objects.requireNonNull(getServer().getPluginCommand("sks")).setExecutor(new SsCmd());
         Objects.requireNonNull(getServer().getPluginCommand("sks")).setTabCompleter(new SsCmdTab());
+
+        int pluginId = 16211;
+        Metrics metrics = new Metrics(this, pluginId);
     }
     private void say(String say) {
         getServer().getConsoleSender().sendMessage(say);
