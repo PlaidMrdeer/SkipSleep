@@ -16,8 +16,13 @@ public class SsCmdTab implements TabCompleter {
             tab.add("on");
             tab.add("off");
             tab.add("set");
+            tab.add("model");
             tab.add("reload");
             return tab;
+        } else if (args.length == 2 && args[1].equalsIgnoreCase("model")) {
+            tab.add("num");
+            tab.add("pet");
+            tab.add("set");
         }
         return null;
     }
