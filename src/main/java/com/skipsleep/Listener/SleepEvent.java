@@ -52,78 +52,80 @@ public class SleepEvent implements Listener {
             if (Objects.requireNonNull(SkipSleep.getPlugin().getConfig().getString("model")).equalsIgnoreCase("pet")) {
                 petNum = Bukkit.getOnlinePlayers().size();
                 if (time >= 12000 || time == 0 || p.getWorld().hasStorm()) {
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    if (!e.isCancelled()) {
-                        num1++;
-                        numberFormat = NumberFormat.getInstance();
-                        numberFormat.setMaximumFractionDigits(2);
-                        result = numberFormat.format((float) num1 / (float) petNum * 100);
-                        resultInt = Double.parseDouble(result);
-                        if (resultInt <= SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
-                            Bukkit.broadcastMessage("§l>> §a已经有 §l§e百分之" + resultInt + "/" + SkipSleep.getPlugin().getConfig().getInt("skipPet") + "的人 §r§a躺在了床上");
-                        }
-                        for (Player p : Bukkit.getOnlinePlayers()) {
-                            p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
-                        }
-                        if (resultInt >= SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
-                            isSkip = true;
-                            Bukkit.broadcastMessage("§l>> §a即将跳过夜晚...");
-                            new BukkitRunnable() {
-                                @Override
-                                public void run() {
-                                    if (resultInt < SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
-                                        Bukkit.broadcastMessage("§l>> §a人数不足哦!");
-                                    } else {
-                                        num1 = 0;
-                                        p.getWorld().setTime(0);
-                                        p.getWorld().setStorm(false);
-                                        p.getWorld().setClearWeatherDuration(0);
-                                    }
-                                    cancel();
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if (!e.isCancelled()) {
+                                num1++;
+                                numberFormat = NumberFormat.getInstance();
+                                numberFormat.setMaximumFractionDigits(2);
+                                result = numberFormat.format((float) num1 / (float) petNum * 100);
+                                resultInt = Double.parseDouble(result);
+                                if (resultInt <= SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
+                                    Bukkit.broadcastMessage("§l>> §a已经有 §l§e百分之" + resultInt + "/" + SkipSleep.getPlugin().getConfig().getInt("skipPet") + "的人 §r§a躺在了床上");
                                 }
-                            }.runTaskTimer(SkipSleep.getPlugin(), 100L, 0L);
+                                for (Player p : Bukkit.getOnlinePlayers()) {
+                                    p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
+                                }
+                                if (resultInt >= SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
+                                    isSkip = true;
+                                    Bukkit.broadcastMessage("§l>> §a即将跳过夜晚...");
+                                    new BukkitRunnable() {
+                                        @Override
+                                        public void run() {
+                                            if (resultInt < SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
+                                                Bukkit.broadcastMessage("§l>> §a人数不足哦!");
+                                            } else {
+                                                num1 = 0;
+                                                p.getWorld().setTime(0);
+                                                p.getWorld().setStorm(false);
+                                                p.getWorld().setClearWeatherDuration(0);
+                                            }
+                                            cancel();
+                                        }
+                                    }.runTaskTimer(SkipSleep.getPlugin(), 100L, 0L);
+                                }
+                            }
+                            cancel();
                         }
-                    }
+                    }.runTaskTimer(SkipSleep.getPlugin(), 1L, 0L);
                 }
             } else if (Objects.requireNonNull(SkipSleep.getPlugin().getConfig().getString("model")).equalsIgnoreCase("num")) {
                 time = p.getWorld().getTime();
                 if (time >= 12000 || time == 0 || p.getWorld().hasStorm()) {
-                    try {
-                            Thread.sleep(50);
-                    } catch (InterruptedException ex) {
-                            throw new RuntimeException(ex);
-                    }
-                    if (!e.isCancelled()) {
-                        num1++;
-                        if (num1 != num) {
-                            Bukkit.broadcastMessage("§l>> §a已经有 §l§e" + num1 + "/" + num + "人 §r§a躺在了床上");
-                        }
-                        for (Player p : Bukkit.getOnlinePlayers()) {
-                            p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
-                        }
-                        if (num1 == num) {
-                            isSkip = true;
-                            Bukkit.broadcastMessage("§l>> §a即将跳过夜晚...");
-                            new BukkitRunnable() {
-                                @Override
-                                public void run() {
-                                    if (num1 < num) {
-                                        Bukkit.broadcastMessage("§l>> §a人数不足哦!");
-                                    } else {
-                                        num1 = 0;
-                                        p.getWorld().setTime(0);
-                                        p.getWorld().setStorm(false);
-                                        p.getWorld().setClearWeatherDuration(0);
-                                    }
-                                    cancel();
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if (!e.isCancelled()) {
+                                num1++;
+                                if (num1 != num) {
+                                    Bukkit.broadcastMessage("§l>> §a已经有 §l§e" + num1 + "/" + num + "人 §r§a躺在了床上");
                                 }
-                            }.runTaskTimer(SkipSleep.getPlugin(), 100L, 0L);
+                                for (Player p : Bukkit.getOnlinePlayers()) {
+                                    p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
+                                }
+                                if (num1 == num) {
+                                    isSkip = true;
+                                    Bukkit.broadcastMessage("§l>> §a即将跳过夜晚...");
+                                    new BukkitRunnable() {
+                                        @Override
+                                        public void run() {
+                                            if (num1 < num) {
+                                                Bukkit.broadcastMessage("§l>> §a跳过夜晚失败!");
+                                            } else {
+                                                num1 = 0;
+                                                p.getWorld().setTime(0);
+                                                p.getWorld().setStorm(false);
+                                                p.getWorld().setClearWeatherDuration(0);
+                                            }
+                                            cancel();
+                                        }
+                                    }.runTaskTimer(SkipSleep.getPlugin(), 100L, 0L);
+                                }
+                            }
+                            cancel();
                         }
-                    }
+                    }.runTaskTimer(SkipSleep.getPlugin(), 1L, 0L);
                 }
             }
         }

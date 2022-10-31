@@ -18,6 +18,6 @@ public class InspectNum {
                     SkipSleep.getPlugin().saveConfig();
                 }
             }
-        }.runTaskTimer(SkipSleep.getPlugin(), 0L, 20L);
+        }.runTaskTimer(SkipSleep.getPlugin(), 0L, 100L);
     }
 }

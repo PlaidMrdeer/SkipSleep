@@ -1,9 +1,11 @@
 package com.skipsleep;
 
 import com.skipsleep.Listener.SleepEvent;
+import com.skipsleep.bstats.Metrics;
 import com.skipsleep.command.SsCmd;
 import com.skipsleep.command.SsCmdTab;
 import com.skipsleep.thead.InspectNum;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -21,11 +23,12 @@ public final class SkipSleep extends JavaPlugin {
 
         InspectNum.num();
 
-        say("§e[§aSkipSleep§e]§a=====================================");
-        say("§e[§aSkipSleep§e]§a     §a作者: §b" + getDescription().getAuthors());
-        say("§e[§aSkipSleep§e]§a     §aQQ交流群: §b759010920");
-        say("§e[§aSkipSleep§e]§a     §a版本: §b" + getDescription().getVersion());
-        say("§e[§aSkipSleep§e]§a=====================================");
+        say(ChatColor.AQUA + "  ____  _    _      ____  _                 ");
+        say(ChatColor.AQUA + " / ___|| | _(_)_ __/ ___|| | ___  ___ _ __  ");
+        say(ChatColor.AQUA + " \\___ \\| |/ / | '_ \\___ \\| |/ _ \\/ _ \\ '_ \\ ");
+        say(ChatColor.AQUA + "  ___) |   <| | |_) |__) | |  __/  __/ |_) |");
+        say(ChatColor.AQUA + " |____/|_|\\_\\_| .__/____/|_|\\___|\\___| .__/ ");
+        say(ChatColor.AQUA + "              |_|                    |_|    ");
 
         getServer().getPluginManager().registerEvents(new SleepEvent(), this);
 
