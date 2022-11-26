@@ -1,8 +1,10 @@
-#是否启用此插件的功能
+#Whether to enable update detection
+update: true
+#Whether to enable the function of this plug-in
 skip: true
-#设置达到几人睡觉跳过夜晚
+#Set how many people to sleep and skip the night
 skipNum: 1
-#睡觉人数的总百分比 最佳的百分比是25% 50% 75% 100%
+#Total percentage of people sleeping,The best percentage is 25% 50% 75% 100%
 skipPet: 50
-#跳过模式
+#skip mode pet num
 model: 'num'

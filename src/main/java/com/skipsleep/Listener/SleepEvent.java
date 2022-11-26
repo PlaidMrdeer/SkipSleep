@@ -1,6 +1,7 @@
 package com.skipsleep.Listener;
 
 import com.skipsleep.SkipSleep;
+import com.skipsleep.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -15,13 +16,13 @@ import java.util.Objects;
 
 public class SleepEvent implements Listener {
     int num = 0;
-    int num1 = 0;
+    public static int num1 = 0;
     long time;
     Player p;
     boolean isFlag;
     boolean isSkip;
     int petNum;
-    double resultInt;
+    public static double resultInt;
     Sound sound;
     NumberFormat numberFormat;
     String result;
@@ -33,13 +34,13 @@ public class SleepEvent implements Listener {
         if (Objects.requireNonNull(SkipSleep.getPlugin().getConfig().getString("model")).equalsIgnoreCase("num")) {
             if (num1 == num) {
                 e.setCancelled(true);
-                e.getPlayer().sendMessage("§l>> §b睡觉人数已经满了哦, 请等待跳过天亮");
+                e.getPlayer().sendMessage(Language.SKIP_NIGHT_NUMBER_FULL);
                 return;
             }
         } else if (Objects.requireNonNull(SkipSleep.getPlugin().getConfig().getString("model")).equalsIgnoreCase("pet")) {
             if (resultInt >= SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
                 e.setCancelled(true);
-                e.getPlayer().sendMessage("§l>> §b睡觉人数已经满了哦, 请等待跳过天亮");
+                e.getPlayer().sendMessage(Language.SKIP_NIGHT_NUMBER_FULL);
                 return;
             }
         }
@@ -61,20 +62,22 @@ public class SleepEvent implements Listener {
                                 numberFormat.setMaximumFractionDigits(2);
                                 result = numberFormat.format((float) num1 / (float) petNum * 100);
                                 resultInt = Double.parseDouble(result);
+                                Language.getLanguage();
                                 if (resultInt <= SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
-                                    Bukkit.broadcastMessage("§l>> §a已经有 §l§e百分之" + resultInt + "/" + SkipSleep.getPlugin().getConfig().getInt("skipPet") + "的人 §r§a躺在了床上");
+                                    Language.getLanguage();
+                                    Bukkit.broadcastMessage(Language.SKIP_PET_TOTAL_PET);
                                 }
                                 for (Player p : Bukkit.getOnlinePlayers()) {
                                     p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
                                 }
                                 if (resultInt >= SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
                                     isSkip = true;
-                                    Bukkit.broadcastMessage("§l>> §a即将跳过夜晚...");
+                                    Bukkit.broadcastMessage(Language.SKIP_NIGHT);
                                     new BukkitRunnable() {
                                         @Override
                                         public void run() {
                                             if (resultInt < SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
-                                                Bukkit.broadcastMessage("§l>> §a人数不足哦!");
+                                                Bukkit.broadcastMessage(Language.SKIP_FAILED); //跳过失败
                                             } else {
                                                 num1 = 0;
                                                 p.getWorld().setTime(0);
@@ -99,19 +102,20 @@ public class SleepEvent implements Listener {
                             if (!e.isCancelled()) {
                                 num1++;
                                 if (num1 != num) {
-                                    Bukkit.broadcastMessage("§l>> §a已经有 §l§e" + num1 + "/" + num + "人 §r§a躺在了床上");
+                                    Language.getLanguage();
+                                    Bukkit.broadcastMessage(Language.SKIP_NUMBER_TOTAL_NUMBER);
                                 }
                                 for (Player p : Bukkit.getOnlinePlayers()) {
                                     p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
                                 }
                                 if (num1 == num) {
                                     isSkip = true;
-                                    Bukkit.broadcastMessage("§l>> §a即将跳过夜晚...");
+                                    Bukkit.broadcastMessage(Language.SKIP_NIGHT);
                                     new BukkitRunnable() {
                                         @Override
                                         public void run() {
                                             if (num1 < num) {
-                                                Bukkit.broadcastMessage("§l>> §a跳过夜晚失败!");
+                                                Bukkit.broadcastMessage(Language.SKIP_FAILED);
                                             } else {
                                                 num1 = 0;
                                                 p.getWorld().setTime(0);
@@ -141,7 +145,8 @@ public class SleepEvent implements Listener {
                     result = numberFormat.format((float) num1 / (float) petNum * 100);
                     resultInt = Double.parseDouble(result);
                     if (!isSkip) {
-                        Bukkit.broadcastMessage("§l>> §a已经有 §l§e百分之" + resultInt + "/" + SkipSleep.getPlugin().getConfig().getInt("skipPet") + "的人 §r§a躺在了床上");
+                        Language.getLanguage();
+                        Bukkit.broadcastMessage(Language.SKIP_PET_TOTAL_PET);
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
                         }
@@ -151,7 +156,8 @@ public class SleepEvent implements Listener {
                 if (time >= 12000 || time == 0 || !p.getWorld().isClearWeather()) {
                     num1--;
                     if (!isSkip) {
-                        Bukkit.broadcastMessage("§l>> §a已经有 §l§e" + num1 + "/" + num + "人 §r§a躺在了床上");
+                        Language.getLanguage();
+                        Bukkit.broadcastMessage(Language.SKIP_NUMBER_TOTAL_NUMBER);
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
                         }

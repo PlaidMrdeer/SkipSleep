@@ -1,6 +1,7 @@
 package com.skipsleep.command;
 
 import com.skipsleep.SkipSleep;
+import com.skipsleep.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,7 +12,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class SsCmd implements CommandExecutor {
     Player p;
-    int num;
+    int totalNum;
     int petNum;
     @Override
     public boolean onCommand(@NonNull CommandSender sender, @NonNull Command cmd, @NonNull String label, String[] args) {
@@ -24,28 +25,29 @@ public class SsCmd implements CommandExecutor {
                     if (args[0].equalsIgnoreCase("set")) {
                         if (args.length == 2) {
                             try {
-                                num = Integer.parseInt(args[1]);
+                                totalNum = Integer.parseInt(args[1]);
                             } catch (NumberFormatException e) {
                                 if (sender == Bukkit.getConsoleSender()) {
-                                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "你应该输入数字!");
+                                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_SET_NO_NUMBER);
 
                                 } else {
-                                    p.sendMessage(ChatColor.RED + "你应该输入数字!");
+                                    p.sendMessage(Language.COMMAND_SET_NO_NUMBER);
                                 }
                                 return true;
                             }
-                            SkipSleep.getPlugin().getConfig().set("skipNum", num);
+                            SkipSleep.getPlugin().getConfig().set("skipNum", totalNum);
                             SkipSleep.getPlugin().saveConfig();
+                            Language.getLanguage();
                             if (sender == Bukkit.getConsoleSender()) {
-                                Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "已设置达到 §l§e" + num + "人" + ChatColor.GREEN + " 睡觉跳过夜晚");
+                                Bukkit.getConsoleSender().sendMessage(Language.COMMAND_SET_NUMBER_SUCCESS);
                             } else {
-                                p.sendMessage(ChatColor.GREEN + "已设置达到 §l§e" + num + "人" + ChatColor.GREEN + " 睡觉跳过夜晚");
+                                p.sendMessage(Language.COMMAND_SET_NUMBER_SUCCESS);
                             }
                         } else {
                             if (sender == Bukkit.getConsoleSender()) {
-                                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "命令错误!");
+                                Bukkit.getConsoleSender().sendMessage(Language.COMMAND_ERROR);
                             } else {
-                                p.sendMessage(ChatColor.RED + "命令错误!");
+                                p.sendMessage(Language.COMMAND_ERROR);
                             }
                         }
                     } else if (args[0].equalsIgnoreCase("model")) {
@@ -54,23 +56,23 @@ public class SsCmd implements CommandExecutor {
                                 SkipSleep.getPlugin().getConfig().set("model", "num");
                                 SkipSleep.getPlugin().saveConfig();
                                 if (sender == Bukkit.getConsoleSender()) {
-                                    Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "成功切换到人数跳过");
+                                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_SWITCH_MODEL_SUCCESS);
                                 } else {
-                                    p.sendMessage(ChatColor.AQUA + "成功切换到人数跳过");
+                                    p.sendMessage(Language.COMMAND_SWITCH_MODEL_SUCCESS);
                                 }
                             } else if (args[1].equalsIgnoreCase("pet")) {
                                 SkipSleep.getPlugin().getConfig().set("model", "pet");
                                 SkipSleep.getPlugin().saveConfig();
                                 if (sender == Bukkit.getConsoleSender()) {
-                                    Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "成功切换到百分比跳过");
+                                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_SWITCH_MODEL_SUCCESS);
                                 } else {
-                                    p.sendMessage(ChatColor.AQUA + "成功切换到百分比跳过");
+                                    p.sendMessage(Language.COMMAND_SWITCH_MODEL_SUCCESS);
                                 }
                             } else {
                                 if (sender == Bukkit.getConsoleSender()) {
-                                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "命令错误!");
+                                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_ERROR);
                                 } else {
-                                    p.sendMessage(ChatColor.RED + "命令错误!");
+                                    p.sendMessage(Language.COMMAND_ERROR);
                                 }
                             }
                         } else if (args.length == 3) {
@@ -79,56 +81,89 @@ public class SsCmd implements CommandExecutor {
                                     petNum = Integer.parseInt(args[2]);
                                 } catch (NumberFormatException e) {
                                     if (sender == Bukkit.getConsoleSender()) {
-                                        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "你应该输入数字!");
+                                        Bukkit.getConsoleSender().sendMessage(Language.COMMAND_SET_NO_NUMBER);
                                     } else {
-                                        p.sendMessage(ChatColor.RED + "你应该输入数字!");
+                                        p.sendMessage(Language.COMMAND_SET_NO_NUMBER);
                                     }
                                     return true;
                                 }
                                 if (petNum > 100) {
-                                    p.sendMessage(ChatColor.RED + "请勿设置超过100%!");
+                                    p.sendMessage(Language.COMMAND_PET_EXCEED_100);
                                     return true;
                                 }
                                 SkipSleep.getPlugin().getConfig().set("skipPet", petNum);
                                 SkipSleep.getPlugin().saveConfig();
+                                Language.getLanguage();
                                 if (sender == Bukkit.getConsoleSender()) {
-                                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "已设置达到 §l§e百分比" + petNum + ChatColor.GREEN + " 跳过夜晚");
+                                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_SET_PET_SUCCESS);
                                 } else {
-                                    p.sendMessage(ChatColor.GREEN + "已设置达到 §l§e百分比" + petNum + ChatColor.GREEN + " 跳过夜晚");
+                                    p.sendMessage(Language.COMMAND_SET_PET_SUCCESS);
                                 }
                             } else {
                                 if (sender == Bukkit.getConsoleSender()) {
-                                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "命令错误!");
+                                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_ERROR);
                                 } else {
-                                    p.sendMessage(ChatColor.RED + "命令错误!");
+                                    p.sendMessage(Language.COMMAND_ERROR);
                                 }
                             }
                         } else {
                             if (sender == Bukkit.getConsoleSender()) {
-                                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "命令错误!");
+                                Bukkit.getConsoleSender().sendMessage(Language.COMMAND_ERROR);
                             } else {
-                                p.sendMessage(ChatColor.RED + "命令错误!");
+                                p.sendMessage(Language.COMMAND_ERROR);
+                            }
+                        }
+                    } else if (args[0].equalsIgnoreCase("update")) {
+                        if (args.length == 2) {
+                            if (args[1].equalsIgnoreCase("on")) {
+                                SkipSleep.getPlugin().getConfig().set("update", true);
+                                SkipSleep.getPlugin().saveConfig();
+                                if (sender == Bukkit.getConsoleSender()) {
+                                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_UPDATE);
+                                } else {
+                                    p.sendMessage(Language.COMMAND_UPDATE);
+                                }
+                            } else if (args[1].equalsIgnoreCase("off")) {
+                                SkipSleep.getPlugin().getConfig().set("update", false);
+                                SkipSleep.getPlugin().saveConfig();
+                                if (sender == Bukkit.getConsoleSender()) {
+                                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_UPDATE);
+                                } else {
+                                    p.sendMessage(Language.COMMAND_UPDATE);
+                                }
+                            } else {
+                                if (sender == Bukkit.getConsoleSender()) {
+                                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_ERROR);
+                                } else {
+                                    p.sendMessage(Language.COMMAND_ERROR);
+                                }
+                            }
+                        } else {
+                            if (sender == Bukkit.getConsoleSender()) {
+                                Bukkit.getConsoleSender().sendMessage(Language.COMMAND_ERROR);
+                            } else {
+                                p.sendMessage(Language.COMMAND_ERROR);
                             }
                         }
                     }
-                    if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off") || args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("model") || args[0].equalsIgnoreCase("help")) {
+                    if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off") || args[0].equalsIgnoreCase("reload") || args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("model") || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("update")) {
                         subCmd(args[0], sender);
                     } else {
                         if (sender == Bukkit.getConsoleSender()) {
-                            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "命令错误!");
+                            Bukkit.getConsoleSender().sendMessage(Language.COMMAND_ERROR);
                         } else {
-                            p.sendMessage(ChatColor.RED + "命令错误!");
+                            p.sendMessage(Language.COMMAND_ERROR);
                         }
                     }
                 } else {
                     if (sender == Bukkit.getConsoleSender()) {
-                        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "命令错误!");
+                        Bukkit.getConsoleSender().sendMessage(Language.COMMAND_ERROR);
                     } else {
-                        p.sendMessage(ChatColor.RED + "命令错误!");
+                        p.sendMessage(Language.COMMAND_ERROR);
                     }
                 }
             } else {
-                p.sendMessage(ChatColor.RED + "你不是管理员!");
+                p.sendMessage(Language.COMMAND_NO_PERMISSION);
             }
             return true;
         }
@@ -140,26 +175,27 @@ public class SsCmd implements CommandExecutor {
                 SkipSleep.getPlugin().getConfig().set("skip", true);
                 SkipSleep.getPlugin().saveConfig();
                 if (sender == Bukkit.getConsoleSender()) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "跳过睡觉开启!");
+                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_SKIP_ON);
                 } else {
-                    p.sendMessage(ChatColor.GREEN + "跳过睡觉开启!");
+                    p.sendMessage(Language.COMMAND_SKIP_ON);
                 }
                 break;
             case "off":
                 SkipSleep.getPlugin().getConfig().set("skip", false);
                 SkipSleep.getPlugin().saveConfig();
                 if (sender == Bukkit.getConsoleSender()) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "跳过睡觉关闭!");
+                    Bukkit.getConsoleSender().sendMessage(Language.COMMAND_SKIP_OFF);
                 } else {
-                    p.sendMessage(ChatColor.GREEN + "跳过睡觉关闭!");
+                    p.sendMessage(Language.COMMAND_SKIP_OFF);
                 }
                 break;
             case "reload":
                 SkipSleep.getPlugin().reloadConfig();
+                Language.getLanguage();
                 if (sender == Bukkit.getConsoleSender()) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + SkipSleep.getPlugin().getDescription().getName() + ChatColor.GREEN + " 重载成功!");
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + SkipSleep.getPlugin().getDescription().getName() + ChatColor.GREEN + "Reload succeeded!");
                 } else {
-                    p.sendMessage(ChatColor.GREEN + "重载成功!");
+                    p.sendMessage(Language.COMMAND_RELOAD);
                 }
                 break;
             case "set":
@@ -172,25 +208,25 @@ public class SsCmd implements CommandExecutor {
 
     private void help(CommandSender sender) {
         if (sender == Bukkit.getConsoleSender()) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "==============" + ChatColor.GREEN + "SkipSleep" + ChatColor.YELLOW + "==============");
-            Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "/sks on--设置开启跳过功能");
-            Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "/sks off--设置关闭跳过功能");
-            Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "/sks set <数字>--设置达到几人睡觉跳过夜晚");
-            Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "/sks model num--切换人数跳过");
-            Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "/sks model pet--切换百分比跳过");
-            Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "/sks model set <百分比>--设置达到多少百分比跳过夜晚");
-            Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "/sks reload--重载配置文件");
-            Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + "/sks help--查看指令帮助");
+            Bukkit.getConsoleSender().sendMessage(Language.HELP_HEAD);
+            Bukkit.getConsoleSender().sendMessage(Language.HELP_COMMAND_ON);
+            Bukkit.getConsoleSender().sendMessage(Language.HELP_COMMAND_OFF);
+            Bukkit.getConsoleSender().sendMessage(Language.HELP_COMMAND_SET_NUMBER);
+            Bukkit.getConsoleSender().sendMessage(Language.HELP_COMMAND_MODEL_NUM);
+            Bukkit.getConsoleSender().sendMessage(Language.HELP_COMMAND_MODEL_PET);
+            Bukkit.getConsoleSender().sendMessage(Language.HELP_COMMAND_MODEL_SET_PET);
+            Bukkit.getConsoleSender().sendMessage(Language.HELP_COMMAND_RELOAD);
+            Bukkit.getConsoleSender().sendMessage(Language.HELP_COMMAND_HELP);
         } else {
-            p.sendMessage(ChatColor.YELLOW + "==============" + ChatColor.GREEN + "SkipSleep" + ChatColor.YELLOW + "==============");
-            p.sendMessage(ChatColor.AQUA + "/sks on--设置开启跳过功能");
-            p.sendMessage(ChatColor.AQUA + "/sks off--设置关闭跳过功能");
-            p.sendMessage(ChatColor.AQUA + "/sks set <数字>--设置达到几人睡觉跳过夜晚");
-            p.sendMessage(ChatColor.AQUA + "/sks model num--切换人数跳过");
-            p.sendMessage(ChatColor.AQUA + "/sks model pet--切换百分比跳过");
-            p.sendMessage(ChatColor.AQUA + "/sks model set <百分比>--设置达到多少百分比跳过夜晚");
-            p.sendMessage(ChatColor.AQUA + "/sks reload--重载配置文件");
-            p.sendMessage(ChatColor.AQUA + "/sks help--查看指令帮助");
+            p.sendMessage(Language.HELP_HEAD);
+            p.sendMessage(Language.HELP_COMMAND_ON);
+            p.sendMessage(Language.HELP_COMMAND_OFF);
+            p.sendMessage(Language.HELP_COMMAND_SET_NUMBER);
+            p.sendMessage(Language.HELP_COMMAND_MODEL_NUM);
+            p.sendMessage(Language.HELP_COMMAND_MODEL_PET);
+            p.sendMessage(Language.HELP_COMMAND_MODEL_SET_PET);
+            p.sendMessage(Language.HELP_COMMAND_RELOAD);
+            p.sendMessage(Language.HELP_COMMAND_HELP);
         }
     }
 }

@@ -1,9 +1,10 @@
 name: SkipSleep
-version: 1.4.2
+version: 1.5.0
 main: com.skipsleep.SkipSleep
 author: 'PlaidMrdeer'
-description: '一款只需一个人睡觉就可以跳过夜晚的轻量插件'
+website: 'https://www.spigotmc.org/resources/skipsleep.106146/'
+description: 'A lightweight plug-in that only needs one person to sleep and can skip the night'
 api-version: 1.13
 commands:
   sks:
-    description: '主命令'
+    description: 'Main command'
