@@ -1,0 +1,28 @@
+prefix: '&b[&aSkipSleep&b]'
+
+CURRENT_VERSION: '{prefix}&bThe current version is &a{version}'
+INSPECT_NEW_VERSION: '{prefix}&dCheck the new version..'
+DETECTED_NEW_VERSION: '{prefix}&bNew version &a{new_version} &bdetected'
+NO_NEW_VERSION: '{prefix}&dNo latest version..'
+NEW_VERSION_WEBSITE: '{prefix}&bPlease go to website &ahttps://github.com/plaidmrdeer/SkipSleep/releases &ror &ahttps://www.spigotmc.org/resources/skipsleep.106146/ &bto download the new version'
+
+COMMAND_SET_SUCCESSFULLY: '&aSet successfully!'
+COMMAND_SET_FAIL: '&cSetting failed!'
+COMMAND_ERROR: '&ccommand error!'
+COMMAND_NO_PERMISSION: '&cYou do not have permission to use this command!'
+COMMAND_RELOAD: '{prefix}&aReload succeeded!'
+
+HELP_HEAD: '&a==============&eSkipSleep&a=============='
+HELP_COMMAND_ENABLE: '&b/skse <on/off>--Whether to enable the skip night function of the plugin'
+HELP_COMMAND_NUMBER: '&b/sksn <number>--Set how many people sleep to skip the night'
+HELP_COMMAND_MODEL: '&b/sksm <num/pet>--Switch the skip mode. num is the number of skips and pet is the percentage of skips'
+HELP_COMMAND_PET: '&b/sksp <pet>--Set the percentage of skipping nights'
+HELP_COMMAND_UPDATE: '&b/sksu <on/off>--Set whether to enable update detection'
+HELP_COMMAND_RELOAD: '&b/sksr--Reload configuration file'
+HELP_COMMAND_HELP: '&b/sksh--View Description Help'
+
+SKIP_NIGHT_NUMBER_FULL: '&bThe number of people sleeping is full. Please wait until dawn'
+SKIP_PET_TOTAL_PET: '&a{pet}/{totalPet} &bpeople are already lying in bed'
+SKIP_NIGHT: '&aIts about to pass the night..'
+SKIP_FAILED: '&cSkip failed!'
+SKIP_NUMBER_TOTAL_NUMBER: '&a{num}/{totalNum} &bpeople are already lying in bed'

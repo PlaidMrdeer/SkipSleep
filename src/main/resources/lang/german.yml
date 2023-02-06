@@ -1,0 +1,28 @@
+prefix: '&b[&aSkipSleep&b]'
+
+CURRENT_VERSION: '{prefix}&bDie aktuelle Version is &a{version}'
+INSPECT_NEW_VERSION: '{prefix}&dAuf neue Version prüfen..'
+DETECTED_NEW_VERSION: '{prefix}&bNeue Version erkannt &a{new_version}'
+NO_NEW_VERSION: '{prefix}&dKeine neueste Version'
+NEW_VERSION_WEBSITE: '{prefix}&bBitte besuchen Sie die Website &ahttps://github.com/plaidmrdeer/SkipSleep/releases &roder &ahttps://www.spigotmc.org/resources/skipsleep.106146/ &bNeue Version herunterladen'
+
+COMMAND_SET_SUCCESSFULLY: '{prefix}&aSet erfolgreich!'
+COMMAND_SET_FAIL: '{prefix}&cEinstellung fehlgeschlagen!'
+COMMAND_ERROR: '{prefix}&cBefehlsfehler!'
+COMMAND_NO_PERMISSION: '&cSie haben keine Berechtigung, diesen Befehl zu verwenden!'
+COMMAND_RELOAD: '{prefix}&aReload erfolgreich!'
+
+HELP_HEAD: '&a==============&eSkipSleep&a=============='
+HELP_COMMAND_ENABLE: '&b/skse <on/off>--Ob die Skip Night Funktion des Plugins aktiviert werden soll'
+HELP_COMMAND_NUMBER: '&b/sksn <num>--et how many people sleep to skip this night'
+HELP_COMMAND_MODEL: '&b/sksm <num/pet>--Skip-Modus umschalten, sum Anzahl der übersprungenen Personen, pet Ja Prozentsatz überspringen'
+HELP_COMMAND_PET: '&b/sksp <pet>--Legen Sie den Prozentsatz der übersprungenen Nächte fest'
+HELP_COMMAND_UPDATE: '&b/sksu <on/off>--Festlegen, ob die Update-Erkennung aktiviert werden soll'
+HELP_COMMAND_RELOAD: '&b/sksr--Konfigurationsdatei neu laden'
+HELP_COMMAND_HELP: '&b/sksh--View Description Hilfe'
+
+SKIP_NIGHT_NUMBER_FULL: '&bDie Anzahl der Schlafenden ist voll。 Bitte warten Sie bis zum Morgengrauen'
+SKIP_PET_TOTAL_PET: '&a{pet}/{totalPet} &bIm Bett liegen'
+SKIP_NIGHT: '&aIch werde die Nacht überspringen'
+SKIP_FAILED: '&cSkip ist fehlgeschlagen!'
+SKIP_NUMBER_TOTAL_NUMBER: '&a{num}/{totalNum} &bIm Bett liegen'

@@ -1,0 +1,28 @@
+prefix: '&b[&aSkipSleep&b]'
+
+CURRENT_VERSION: '{prefix}&b当前版本为 &a{version}'
+INSPECT_NEW_VERSION: '{prefix}&d检查新版本..'
+DETECTED_NEW_VERSION: '{prefix}&b检测到新版本 &a{new_version}'
+NO_NEW_VERSION: '{prefix}&d无最新版本..'
+NEW_VERSION_WEBSITE: '{prefix}&b请访问网站 &ahttps://github.com/plaidmrdeer/SkipSleep/releases &r或 &ahttps://www.spigotmc.org/resources/skipsleep.106146/ &b下载新版本'
+
+COMMAND_SET_SUCCESSFULLY: '{prefix}&a设置成功!'
+COMMAND_SET_FAIL: '{prefix}&c设置失败!'
+COMMAND_ERROR: '{prefix}&c命令错误!'
+COMMAND_NO_PERMISSION: '&c你没有权限使用此命令！'
+COMMAND_RELOAD: '{prefix}&a重新加载成功！'
+
+HELP_HEAD: '&a==============&eSkipSleep&a=============='
+HELP_COMMAND_ENABLE: '&b/skse <on/off>--是否启用插件得跳过夜晚功能'
+HELP_COMMAND_NUMBER: '&b/sksn <数字>--设置有多少人睡觉可以跳过这个夜晚'
+HELP_COMMAND_MODEL: '&b/sksm <num/pet>--切换跳过模式 sum为人数跳过 pet为百分比跳过'
+HELP_COMMAND_PET: '&b/sksp <百分数>--设置跳过夜晚的百分比'
+HELP_COMMAND_UPDATE: '&b/sksu <on/off>--设置是否开启更新检测'
+HELP_COMMAND_RELOAD: '&b/sksr--重新加载配置文件'
+HELP_COMMAND_HELP: '&b/sksh--查看说明帮助'
+
+SKIP_NIGHT_NUMBER_FULL: '&b睡觉的人数已经满了。请等到天亮'
+SKIP_PET_TOTAL_PET: '&a{pet}/{totalPet} &b躺在了床上'
+SKIP_NIGHT: '&a即将跳过夜晚..'
+SKIP_FAILED: '&c跳过失败！'
+SKIP_NUMBER_TOTAL_NUMBER: '&a{num}/{totalNum} &b躺在了床上'

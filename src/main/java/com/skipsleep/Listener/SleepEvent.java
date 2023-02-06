@@ -1,7 +1,6 @@
 package com.skipsleep.Listener;
 
 import com.skipsleep.SkipSleep;
-import com.skipsleep.language.Language;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -29,18 +28,18 @@ public class SleepEvent implements Listener {
     @EventHandler
     public void onSleep(PlayerBedEnterEvent e) {
         sound = Sound.BLOCK_NOTE_BLOCK_BASS;
-        num = SkipSleep.getPlugin().getConfig().getInt("skipNum");
+        num = SkipSleep.instance().getConfig().getInt("skipNum");
         p = e.getPlayer();
-        if (Objects.requireNonNull(SkipSleep.getPlugin().getConfig().getString("model")).equalsIgnoreCase("num")) {
+        if (Objects.requireNonNull(SkipSleep.instance().getConfig().getString("model")).equalsIgnoreCase("num")) {
             if (num1 == num) {
                 e.setCancelled(true);
-                e.getPlayer().sendMessage(Language.SKIP_NIGHT_NUMBER_FULL);
+                SkipSleep.sendMessage(p, "SKIP_NIGHT_NUMBER_FULL");
                 return;
             }
-        } else if (Objects.requireNonNull(SkipSleep.getPlugin().getConfig().getString("model")).equalsIgnoreCase("pet")) {
-            if (resultInt >= SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
+        } else if (Objects.requireNonNull(SkipSleep.instance().getConfig().getString("model")).equalsIgnoreCase("pet")) {
+            if (resultInt >= SkipSleep.instance().getConfig().getInt("skipPet")) {
                 e.setCancelled(true);
-                e.getPlayer().sendMessage(Language.SKIP_NIGHT_NUMBER_FULL);
+                SkipSleep.sendMessage(p, "SKIP_NIGHT_NUMBER_FULL");
                 return;
             }
         }
@@ -48,9 +47,9 @@ public class SleepEvent implements Listener {
         if (num1 > num || num1 < 0) {
             num1 = 0;
         }
-        isFlag = SkipSleep.getPlugin().getConfig().getBoolean("skip");
+        isFlag = SkipSleep.instance().getConfig().getBoolean("skip");
         if (isFlag) {
-            if (Objects.requireNonNull(SkipSleep.getPlugin().getConfig().getString("model")).equalsIgnoreCase("pet")) {
+            if (Objects.requireNonNull(SkipSleep.instance().getConfig().getString("model")).equalsIgnoreCase("pet")) {
                 petNum = Bukkit.getOnlinePlayers().size();
                 if (time >= 12000 || time == 0 || p.getWorld().hasStorm()) {
                     new BukkitRunnable() {
@@ -62,22 +61,20 @@ public class SleepEvent implements Listener {
                                 numberFormat.setMaximumFractionDigits(2);
                                 result = numberFormat.format((float) num1 / (float) petNum * 100);
                                 resultInt = Double.parseDouble(result);
-                                Language.getLanguage();
-                                if (resultInt <= SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
-                                    Language.getLanguage();
-                                    Bukkit.broadcastMessage(Language.SKIP_PET_TOTAL_PET);
+                                if (resultInt <= SkipSleep.instance().getConfig().getInt("skipPet")) {
+                                    SkipSleep.broadcastMessage("SKIP_PET_TOTAL_PET");
                                 }
                                 for (Player p : Bukkit.getOnlinePlayers()) {
                                     p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
                                 }
-                                if (resultInt >= SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
+                                if (resultInt >= SkipSleep.instance().getConfig().getInt("skipPet")) {
                                     isSkip = true;
-                                    Bukkit.broadcastMessage(Language.SKIP_NIGHT);
+                                    SkipSleep.broadcastMessage("SKIP_NIGHT");
                                     new BukkitRunnable() {
                                         @Override
                                         public void run() {
-                                            if (resultInt < SkipSleep.getPlugin().getConfig().getInt("skipPet")) {
-                                                Bukkit.broadcastMessage(Language.SKIP_FAILED); //跳过失败
+                                            if (resultInt < SkipSleep.instance().getConfig().getInt("skipPet")) {
+                                                SkipSleep.broadcastMessage("SKIP_FAILED");
                                             } else {
                                                 num1 = 0;
                                                 p.getWorld().setTime(0);
@@ -86,14 +83,14 @@ public class SleepEvent implements Listener {
                                             }
                                             cancel();
                                         }
-                                    }.runTaskTimer(SkipSleep.getPlugin(), 100L, 0L);
+                                    }.runTaskTimer(SkipSleep.instance(), 100L, 0L);
                                 }
                             }
                             cancel();
                         }
-                    }.runTaskTimer(SkipSleep.getPlugin(), 1L, 0L);
+                    }.runTaskTimer(SkipSleep.instance(), 1L, 0L);
                 }
-            } else if (Objects.requireNonNull(SkipSleep.getPlugin().getConfig().getString("model")).equalsIgnoreCase("num")) {
+            } else if (Objects.requireNonNull(SkipSleep.instance().getConfig().getString("model")).equalsIgnoreCase("num")) {
                 time = p.getWorld().getTime();
                 if (time >= 12000 || time == 0 || p.getWorld().hasStorm()) {
                     new BukkitRunnable() {
@@ -102,20 +99,19 @@ public class SleepEvent implements Listener {
                             if (!e.isCancelled()) {
                                 num1++;
                                 if (num1 != num) {
-                                    Language.getLanguage();
-                                    Bukkit.broadcastMessage(Language.SKIP_NUMBER_TOTAL_NUMBER);
+                                    SkipSleep.broadcastMessage("SKIP_NUMBER_TOTAL_NUMBER");
                                 }
                                 for (Player p : Bukkit.getOnlinePlayers()) {
                                     p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
                                 }
                                 if (num1 == num) {
                                     isSkip = true;
-                                    Bukkit.broadcastMessage(Language.SKIP_NIGHT);
+                                    SkipSleep.broadcastMessage("SKIP_NIGHT");
                                     new BukkitRunnable() {
                                         @Override
                                         public void run() {
                                             if (num1 < num) {
-                                                Bukkit.broadcastMessage(Language.SKIP_FAILED);
+                                                SkipSleep.broadcastMessage("SKIP_FAILED");
                                             } else {
                                                 num1 = 0;
                                                 p.getWorld().setTime(0);
@@ -124,12 +120,12 @@ public class SleepEvent implements Listener {
                                             }
                                             cancel();
                                         }
-                                    }.runTaskTimer(SkipSleep.getPlugin(), 100L, 0L);
+                                    }.runTaskTimer(SkipSleep.instance(), 100L, 0L);
                                 }
                             }
                             cancel();
                         }
-                    }.runTaskTimer(SkipSleep.getPlugin(), 1L, 0L);
+                    }.runTaskTimer(SkipSleep.instance(), 1L, 0L);
                 }
             }
         }
@@ -137,7 +133,7 @@ public class SleepEvent implements Listener {
     @EventHandler
     public void onLeaveSleep(PlayerBedLeaveEvent e) {
         if (isFlag) {
-            if (Objects.requireNonNull(SkipSleep.getPlugin().getConfig().getString("model")).equalsIgnoreCase("pet")) {
+            if (Objects.requireNonNull(SkipSleep.instance().getConfig().getString("model")).equalsIgnoreCase("pet")) {
                 if (time >= 12000 || time == 0 || !p.getWorld().isClearWeather()) {
                     num1--;
                     numberFormat = NumberFormat.getInstance();
@@ -145,19 +141,17 @@ public class SleepEvent implements Listener {
                     result = numberFormat.format((float) num1 / (float) petNum * 100);
                     resultInt = Double.parseDouble(result);
                     if (!isSkip) {
-                        Language.getLanguage();
-                        Bukkit.broadcastMessage(Language.SKIP_PET_TOTAL_PET);
+                        SkipSleep.broadcastMessage("SKIP_PET_TOTAL_PET");
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
                         }
                     }
                 }
-            } else if (Objects.requireNonNull(SkipSleep.getPlugin().getConfig().getString("model")).equalsIgnoreCase("num")) {
+            } else if (Objects.requireNonNull(SkipSleep.instance().getConfig().getString("model")).equalsIgnoreCase("num")) {
                 if (time >= 12000 || time == 0 || !p.getWorld().isClearWeather()) {
                     num1--;
                     if (!isSkip) {
-                        Language.getLanguage();
-                        Bukkit.broadcastMessage(Language.SKIP_NUMBER_TOTAL_NUMBER);
+                        SkipSleep.broadcastMessage("SKIP_NUMBER_TOTAL_NUMBER");
                         for (Player p : Bukkit.getOnlinePlayers()) {
                             p.playSound(p.getLocation(), sound, 3.0F, 3.0F);
                         }

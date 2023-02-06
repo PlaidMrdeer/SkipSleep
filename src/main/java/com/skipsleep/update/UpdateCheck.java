@@ -9,8 +9,11 @@ import java.nio.charset.StandardCharsets;
 
 public class UpdateCheck {
     public static String ver;
-    public static String getLatestVersion() {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL("http://49.234.10.176").openStream(), StandardCharsets.UTF_8))) {
+
+    private static String getLatestVersion() {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new URL("http://plaidmrdeer.loes.tk/plugin/SkipSleep.txt")
+                        .openStream(), StandardCharsets.UTF_8))) {
             ver = reader.readLine();
         } catch (Exception e) {
             e.printStackTrace();
@@ -20,11 +23,11 @@ public class UpdateCheck {
 
     public static boolean isLatestVersion() {
         String latest = getLatestVersion();
-        String current = SkipSleep.getPlugin().getDescription().getVersion();
+        String current = SkipSleep.instance().getDescription().getVersion();
         return latest.equalsIgnoreCase(current);
     }
 
     public static boolean isUpDate() {
-        return SkipSleep.getPlugin().getConfig().getBoolean("update");
+        return SkipSleep.instance().getConfig().getBoolean("update");
     }
 }

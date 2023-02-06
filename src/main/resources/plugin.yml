@@ -1,10 +1,71 @@
 name: SkipSleep
-version: 1.5.0
+version: '${project.version}'
 main: com.skipsleep.SkipSleep
-author: 'PlaidMrdeer'
-website: 'https://www.spigotmc.org/resources/skipsleep.106146/'
-description: 'A lightweight plug-in that only needs one person to sleep and can skip the night'
+author: PlaidMrdeer
+website: https://www.spigotmc.org/resources/skipsleep.106146/
+description: A lightweight plugin that only needs one person to sleep and can skip the night
 api-version: 1.13
+
 commands:
-  sks:
-    description: 'Main command'
+  skipsleepenable:
+    aliases:
+      - skse
+    description: skipsleepenable-command
+
+  skipsleepnumber:
+    aliases:
+      - sksn
+    description: skipsleepnumber-command
+
+  skipsleepmodel:
+    aliases:
+      - sksm
+    description: skipsleepmodel-command
+
+  skipsleeppet:
+    aliases:
+      - sksp
+    description: skipsleeppet-command
+
+  skipsleepreload:
+    aliases:
+      - sksr
+    description: skipsleepreload-command
+
+  skipsleephelp:
+    aliases:
+      - sksh
+    description: skipsleephelp-command
+
+  skipsleepupdate:
+    aliases:
+      - sksu
+    description: skipsleepupdate-command
+
+permissions:
+  SkipSleep.command.skipsleepenable:
+    description: skipsleepenable-command
+    default: op
+
+  SkipSleep.command.skipsleepnumber:
+    description: skipsleepsetnum-command
+    default: op
+
+  SkipSleep.command.skipsleepmodel:
+    description: skipsleepmodel-command
+    default: op
+
+  SkipSleep.command.skipsleeppet:
+    description: skipsleeppet-command
+    default: op
+
+  SkipSleep.command.skipsleepreload:
+    description: skipsleepreload-command
+    default: op
+
+  SkipSleep.command.skipsleephelp:
+    description: skipsleephelp-command
+    default: op
+  SkipSleep.command.skipsleepupdate:
+    description: skipsleepupdate-command
+    default: op
