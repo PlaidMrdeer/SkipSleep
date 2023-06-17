@@ -12,7 +12,7 @@ public class UpdateCheck {
 
     private static String getLatestVersion() {
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new URL("http://plaidmrdeer.loes.tk/plugin/SkipSleep.txt")
+                new InputStreamReader(new URL("https://api.spigotmc.org/legacy/update.php?resource=106146")
                         .openStream(), StandardCharsets.UTF_8))) {
             ver = reader.readLine();
         } catch (Exception e) {

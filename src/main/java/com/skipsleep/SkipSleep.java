@@ -20,6 +20,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+/**
+ * @author PlaidMrdeer
+ */
 public final class SkipSleep extends JavaPlugin {
     private static SkipSleep instance;
 
