@@ -18,12 +18,12 @@ public class Language {
     public static boolean loadLang() {
         List<String> L = Arrays.asList("english.yml", "chinese.yml", "german.yml");
         for (String l : L) {
-            if (!(new File("plugins/SKipSleep/lang/" + l)).exists()) {
+            if (!(new File("plugins" + File.separator + "SKipSleep" + File.separator + "lang" + File.separator + l)).exists()) {
                 SkipSleep.instance().saveResource("lang/" + l, false);
             }
         }
 
-        if (!(new File("plugins/SKipSleep/lang",
+        if (!(new File("plugins" + File.separator + "SKipSleep" + File.separator + "lang",
                 SkipSleep.config.getString("Language.lang") + ".yml")).exists()) {
 
             SkipSleep.instance().getLogger().warning("Unknown language file!");
@@ -31,7 +31,7 @@ public class Language {
             return false;
         }
 
-        File file = new File("plugins/SKipSleep/lang",
+        File file = new File("plugins" + File.separator + "SKipSleep" + File.separator + "lang",
                 SkipSleep.config.getString("Language.lang") + ".yml");
         lang = YamlConfiguration.loadConfiguration(file);
         return true;
